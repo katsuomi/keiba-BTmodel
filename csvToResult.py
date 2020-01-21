@@ -8,7 +8,7 @@ result = []
 for i in range(1, 683):
     i_str = str(i)
     csv_name = 'keiba' + i_str+'.csv'
-    with open('./'+csv_name) as f:
+    with open('./race_csv/'+csv_name) as f:
         reader = csv.reader(f)
         l = [row for row in reader]
         for num in range(1, len(l)):
@@ -20,7 +20,9 @@ writer = csv.writer(csvFile)
 try:
     for row in result:
         csvRow = []
-        csvRow.append(row)
+        csvRow.append(row[0])
+        csvRow.append(row[1])
+        csvRow.append(row[2])
         writer.writerow(csvRow)
 finally:
     csvFile.close()
