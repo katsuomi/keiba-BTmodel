@@ -11,7 +11,8 @@ with open('./point.csv') as f:
   for i in range(1, len(l)):
     if not [l[i][0],l[i][1]] in result:
       result.append([l[i][0],l[i][1]])
-
+    if not [l[i][1],l[i][0]] in result:
+      result.append([l[i][1],l[i][0]])
 
 csvFile = open("./HorseCompetitionTable.csv", 'wt', newline='', encoding='utf-8')
 writer = csv.writer(csvFile)

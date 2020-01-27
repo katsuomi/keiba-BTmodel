@@ -5,68 +5,35 @@ import csv
 
 result = []
 
-with open('./allHorses.csv') as f:
+# 渡ってきた配列に関して、勝敗表を作る
+# 配列の例: array = ['アーモンドアイ','サートゥルナーリア']
+def match_result(array):
+  match_result = [0,0,0]
+  with open('./point.csv') as f:
+    reader = csv.reader(f)
+    l = [row for row in reader]
+    for x in range(0,len(l)):
+      if l[x][0] == array[0] and l[x][1] == array[1]:
+        match_result[0] = (match_result[0] + int(l[x][2]))
+      if l[x][1] == array[0] and l[x][0] == array[1]:
+        match_result[1] = (match_result[1] + int(l[x][2]))
+
+  match_result[2] = match_result[0] + match_result[1]
+  return match_result
+
+# 渡ってきた配列に関して、BTモデルより、強さを測定する
+def calculate_btmodel(array):
+
+
+
+with open('./HorseCompetitionTable.csv') as f:
   reader = csv.reader(f)
-  for row in reader:
-    # row[0]は、全ての馬から、一頭を選択
-    with open('./point.csv') as f:
-      reader2 = csv.reader(f) 
-      l = [row2 for row2 in reader2]
-      for x in range(0,len(l)):
-        #選ばれた馬が勝った試合
-        if row[0] == l[x][0]:
-          result.append([row[0],l[x][1],l[x][2]])
-      for y in range(0,len(l)):
-        #選ばれた馬が負けた試合
-        if row[0] == l[y][1]:
-          if [row[0],l[y][1],l[y][2]] in result:
-            index = result.index([row[0],l[y][1],l[y][2]])
-            result[index] = result[index].append(l[y][2])
-          else:
-            result.append([row[0],l[y][1],0,l[y][2]])
-
-csvFile = open("./horseStrength.csv", 'wt', newline='', encoding='utf-8')
-writer = csv.writer(csvFile)
-try:
-  for row in result:
-    csvRow = []
-    csvRow.append(row)
-    writer.writerow(csvRow)
-finally:
-  csvFile.close()
-
-
-
-        #   if [row[0],l[x][1],0,l[x][2]]
-        #   result.append(row[0],l[x][1],l[x][2])
-        # #選ばれた馬が負けた試合
-        # if row[0] == l[x][1]:
-        #   result.append(row[0],l[x][1],l[x][2])
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  l = [row for row in reader]
+  for num in range(0,len(l)):
+    element = [l[num][0],l[num][1]]
+    print(match_result(element))
+    
+    
 
 
 # const result = [1, 1, 1];
