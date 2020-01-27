@@ -3,13 +3,45 @@
 
 import csv
 
+result = []
+
 with open('./allHorses.csv') as f:
   reader = csv.reader(f)
   for row in reader:
-    print(row[0])
+    # row[0]は、全ての馬から、一頭を選択
+    with open('./point.csv') as f:
+      reader2 = csv.reader(f) 
+      l = [row2 for row2 in reader2]
+      for x in range(0,len(l)):
+        #選ばれた馬が勝った試合
+        if row[0] == l[x][0]:
+          result.append([row[0],l[x][1],l[x][2]])
+      for y in range(0,len(l)):
+        #選ばれた馬が負けた試合
+        if row[0] == l[y][1]:
+          if [row[0],l[y][1],l[y][2]] in result:
+            index = result.index([row[0],l[y][1],l[y][2]])
+            result[index] = result[index].append(l[y][2])
+          else:
+            result.append([row[0],l[y][1],0,l[y][2]])
+
+csvFile = open("./horseStrength.csv", 'wt', newline='', encoding='utf-8')
+writer = csv.writer(csvFile)
+try:
+  for row in result:
+    csvRow = []
+    csvRow.append(row)
+    writer.writerow(csvRow)
+finally:
+  csvFile.close()
 
 
 
+        #   if [row[0],l[x][1],0,l[x][2]]
+        #   result.append(row[0],l[x][1],l[x][2])
+        # #選ばれた馬が負けた試合
+        # if row[0] == l[x][1]:
+        #   result.append(row[0],l[x][1],l[x][2])
 
 
 
