@@ -3,10 +3,22 @@
 
 import csv
 
-result = []
+# 馬名:初期値(0)の辞書
+r_dict = {}
 
-# 渡ってきた配列に関して、勝敗表を作る
-# 配列の例: array = ['アーモンドアイ','サートゥルナーリア']
+# 馬名:初期値(0)の辞書
+pp_dict = {}
+
+# 馬名:初期値(0)の辞書
+p_dict = {}
+
+# 馬名:初期値(1)の辞書
+result_dict = {}
+
+
+# 渡ってきた配列に関して、勝敗表を返す
+# 引数の例: array = ['アーモンドアイ','サートゥルナーリア']
+# 返り値の例: [0,2,2] この場合、0勝2敗で、合計2戦していることを表すことを表す
 def match_result(array):
   match_result = [0,0,0]
   with open('./point.csv') as f:
@@ -21,19 +33,52 @@ def match_result(array):
   match_result[2] = match_result[0] + match_result[1]
   return match_result
 
-# 渡ってきた配列に関して、BTモデルより、強さを測定する
-def calculate_btmodel(array):
+# 渡ってきた配列に関して、BTモデルより、強さを測定する(1)
+# 引数の例 ['アーモンドアイ','サートゥルナーリア',0,2,2]
+def calculate_btmodel_first(array):
+  r = array[4] / (result_dict[array[0]] + result_dict[array[1]])
+  return r
 
 
 
-with open('./HorseCompetitionTable.csv') as f:
-  reader = csv.reader(f)
-  l = [row for row in reader]
-  for num in range(0,len(l)):
-    element = [l[num][0],l[num][1]]
-    print(match_result(element))
-    
-    
+
+# 渡ってきた配列に関して、BTモデルより、強さを測定する(2)
+# def calculate_btmodel_second(array):
+
+
+
+
+
+# 渡ってきた配列に関して、BTモデルより、強さを測定する(3)
+# def calculate_btmodel_third(array):
+
+
+# resultに馬名:初期値(1)の辞書を作成
+csvfile = open('./allHorses.csv')
+for row in csv.reader(csvfile):
+  result_dict[row[0]] = 1
+  p_dict[row[0]] = 0
+  pp_dict[row[0]] = 0
+  r_dict[row[0]] = 0
+  
+csvfile = open('./allHorses.csv')
+for row in csv.reader(csvfile):
+  # row[0] は、選ばれた馬
+  tmp_result = 0
+  with open('./HorseCompetitionTable.csv') as f:
+    reader2 = csv.reader(f)
+    l = [row2 for row2 in reader2]
+    for num in range(0,len(l)):
+      if row[0] == l[num][0]:
+        # elementは、選ばれた馬と戦う側の相手馬を格納している配列
+        element = [l[num][0],l[num][1]]
+        # 試合結果 ['アーモンドアイ','サートゥルナーリア',0,2,2]を格納
+        match_result_array = [l[num][0],l[num][1],match_result(element)[0],match_result(element)[1],match_result(element)[2]]
+        tmp_result += calculate_btmodel_first(match_result_array)
+  r_dict[row[0]] = tmp_result
+
+
+print(r_dict)
 
 
 # const result = [1, 1, 1];
