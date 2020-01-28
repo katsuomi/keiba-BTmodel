@@ -47,19 +47,19 @@ def calculate_btmodel_second(horse_name):
 
 
 # resultに馬名:初期値(1)の辞書を作成
-csvfile = open('./allHorses.csv')
+csvfile = open('./csv/allHorses.csv')
 for row in csv.reader(csvfile):
   result_dict[row[0]] = 1
   pp_dict[row[0]] = 0
   
 
 for k in range(0,15):
-  csvfile = open('./allHorses.csv')
+  csvfile = open('./csv/allHorses.csv')
   for row in csv.reader(csvfile):
     # row[0] は、選ばれた馬
     tmp_result = 0
     tmp_total_win_count = 0
-    with open('./horseCompetitionTable.csv') as f:
+    with open('./csv/horseCompetitionTable.csv') as f:
       reader2 = csv.reader(f)
       l = [row2 for row2 in reader2]
       l_in = [s for s in l if row[0] in s[0]]
@@ -75,13 +75,13 @@ for k in range(0,15):
       pp_dict[row[0]] = tmp_total_win_count / tmp_result
       pp_total += pp_dict[row[0]]
 
-  csvfile = open('./allHorses.csv')
+  csvfile = open('./csv/allHorses.csv')
   for row in csv.reader(csvfile):
     result_dict[row[0]] = calculate_btmodel_second(row[0])
 
   pp_total = 0
 
-csvFile = open("./strength.csv", 'wt', newline='', encoding='utf-8')
+csvFile = open("./csv/strength.csv", 'wt', newline='', encoding='utf-8')
 writer = csv.writer(csvFile)
 
 try:
