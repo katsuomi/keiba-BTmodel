@@ -20,7 +20,7 @@ horse_competition_table = []
 # 返り値の例: [0,2,2] この場合、0勝2敗で、合計2戦していることを表すことを表す
 def match_result(array):
   match_result = [0,0,0]
-  with open('./point.csv') as f:
+  with open('./csv/point.csv') as f:
     reader = csv.reader(f)
     l = [row for row in reader]
     l_in = [s for s in l if array[0] and array[1] in s]
