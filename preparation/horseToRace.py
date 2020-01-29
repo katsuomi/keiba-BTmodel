@@ -5,7 +5,6 @@ import csv
 
 result = []
 
-# resultに馬名:初期値(1)の辞書を作成
 csvfile = open('./csv/allHorses.csv')
 for row in csv.reader(csvfile):
   with open('./csv/horseCompetitionTable.csv') as f:
