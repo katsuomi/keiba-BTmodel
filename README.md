@@ -16,3 +16,5 @@ Another example used to explain the model's purpose is that of scoring products 
 
 While it's hard for a person to draft a direct ranking of (many) brands of wine, it may be feasible to compare a sample of pairs of wines and say, for each pair, which one is better. 
 The Bradley–Terry model can then be used to derive a full ranking. by [wikipedia](https://en.wikipedia.org/wiki/Bradley%E2%80%93Terry_model)
+
+Quantify horse strength in this repository.
