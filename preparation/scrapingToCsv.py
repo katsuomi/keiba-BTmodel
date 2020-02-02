@@ -6,6 +6,7 @@ import re
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
+# 例外レースに対応
 html2 = urlopen(
     'http://jra.jp/datafile/seiseki/g1/hopeful/result/hopeful2018.html')
 bsObj2 = BeautifulSoup(html2, "html.parser")
