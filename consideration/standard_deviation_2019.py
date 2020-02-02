@@ -1,76 +1,30 @@
 #!/usr/bin/env python3
 # coding: utf-8
 
-# G1のレースの場合　
+# 競走馬を馬名から強さに変換
 import csv
-import re
-from urllib.request import urlopen
-from bs4 import BeautifulSoup
-
-html = urlopen('http://jra.jp/datafile/seiseki/replay/2019/g1.html')
-bsObj = BeautifulSoup(html, "html.parser")
-num = 114
-for a in bsObj.find_all('a', href=re.compile("result")):
-  g1_url = 'http://jra.jp' + a.get('href')
-  html2 = urlopen(g1_url)
-  bsObj2 = BeautifulSoup(html2, "html.parser")
-
+for i in range(1,140):
   csvRow = []
-  # レース名の取得
-  race_name = bsObj2.findAll("span", {"class": "race_name"})[0].get_text().strip()
-  csvRow.append(race_name)
-  
-  table = bsObj2.findAll("table", {"class": "basic"})[0]
-  rows = table.findAll("tbody")
-  for row in rows:
-    for cell in row.findAll("td", {"class": "horse"}):
-      csvRow.append(cell.get_text().strip())
-  num_str = str(num)
-  csvFile = open("./csv_2019/2019_race"+num_str+".csv", 'wt',newline='', encoding='utf-8')
+  target_horse = []
+  with open('./csv_2019/2019_race'+str(i)+'.csv') as f:
+    reader = csv.reader(f)
+    for row in reader:
+      target_horse.append(row[0])
+    csvRow.append(target_horse[0])
+  with open('./csv/strength_float.csv') as f:
+    reader = csv.reader(f)
+    index = 0 
+    l = [row for row in reader]
+    for k in range(0,len(l)):
+      if l[k][0] in target_horse:
+        csvRow.append(l[k][1])
+
+  csvFile = open('./csv_2019/2019_race'+str(i)+'.csv', 'wt', newline='', encoding='utf-8')
   writer = csv.writer(csvFile)
   try:
-    #改行コードが入ってたから改行を消す
-    for x in range(len(csvRow)):
-      csvRow2 = []
-      csvRow2.append(csvRow[x])
-      writer.writerow(csvRow2)
+    for num in range(0,len(csvRow)):
+      array = []
+      array.append(csvRow[num])
+      writer.writerow(array)
   finally:
     csvFile.close()
-  num = num + 1
-
-
-# G2 ~ G3のレースの場合
-# import csv
-# from urllib.request import urlopen
-# from bs4 import BeautifulSoup
-
-# for num in range(1, 114):
-#   if num > 99:
-#     num_str = str(num)
-#   elif num > 9:
-#     num_str = '0' + str(num)
-#   else:
-#     num_str = '00' + str(num)
-
-#   html = urlopen('http://jra.jp/datafile/seiseki/replay/2019/'+num_str+'.html')
-#   bsObj = BeautifulSoup(html, "html.parser")
-#   csvRow = []
-#   # レース名の取得
-#   race_name = bsObj.findAll("span", {"class": "race_name"})[0].get_text().strip()
-#   csvRow.append(race_name)
-#   table = bsObj.findAll("table", {"class": "basic"})[0]
-#   rows = table.findAll("tbody")
-#   for row in rows:
-#     for cell in row.findAll("td", {"class": "horse"}):
-#       csvRow.append(cell.get_text().strip())
-
-#   num2 = str(num)
-#   csvFile = open("./csv_2019/2019_race"+num2+".csv", 'wt', newline='', encoding='utf-8')
-#   writer = csv.writer(csvFile)
-#   try:
-#     for x in range(len(csvRow)):
-#       csvRow2 = []
-#       csvRow2.append(csvRow[x])
-#       writer.writerow(csvRow2)
-#   finally:
-#     csvFile.close()
