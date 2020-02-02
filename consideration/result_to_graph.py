@@ -21,6 +21,12 @@ for i in range(1,2):
     reader = csv.reader(f)
     for row in reader:
       print(row[0])
+      print(row[1])
+      print(row[2])
+      print(row[3])
+      print(row[4])
+      print(row[5])
+
 
 
 
