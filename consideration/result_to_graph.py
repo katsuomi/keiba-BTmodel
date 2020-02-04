@@ -16,40 +16,28 @@ variance = []
 #標準偏差
 stdev = []
 
-for i in range(1,2):
+length = []
+
+for i in range(1,140):
   with open('./csv_2019/2019_race'+str(i)+'.csv') as f:
     reader = csv.reader(f)
     for row in reader:
-      print(row[0])
-      print(row[1])
-      print(row[2])
-      print(row[3])
-      print(row[4])
-      print(row[5])
+      mean.append(float(row[2]))
+      median.append(float(row[4]))
+      variance.append(float(row[6]))
+      stdev.append(float(row[8]))
 
+# 折れ線グラフを出力
+for i in range(0,len(mean)):
+  length.append(i)
 
-
-
-
-
-
-# # 折れ線グラフを出力
-# left = np.array([1, 2, 3, 4, 5])
-# height = np.array([100, 300, 200, 500, 400])
-# plt.plot(left, height, linestyle="solid")
-# plt.show()
-# # 折れ線グラフを出力
-# left = np.array([1, 2, 3, 4, 5])
-# height = np.array([100, 300, 200, 500, 400])
-# plt.plot(left, height/2, linestyle="dashed")
-# plt.show()
-# # 折れ線グラフを出力
-# left = np.array([1, 2, 3, 4, 5])
-# height = np.array([100, 300, 200, 500, 400])
-# plt.plot(left, height/3, linestyle="dashdot")
-# plt.show()
-# # 折れ線グラフを出力
-# left = np.array([1, 2, 3, 4, 5])
-# height = np.array([100, 300, 200, 500, 400])
-# plt.plot(left, height/4, linestyle="dotted")
-# plt.show()
+left = np.array(length)
+mean_height = np.array(mean)
+median_height = np.array(median)
+variance_height = np.array(variance)
+stdev_height = np.array(stdev)
+# plt.plot(left, mean_height, linestyle="solid", marker="o", color="red")
+# plt.plot(left, median_height, linestyle="dashed", marker="o", color="blue")
+plt.plot(left, variance_height, linestyle="dashdot", marker="o", color="orange")
+# plt.plot(left, stdev_height, linestyle="dotted", marker="o", color="black")
+plt.show()
