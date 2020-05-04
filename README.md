@@ -19,7 +19,7 @@ The Bradley–Terry model can then be used to derive a full ranking. by [wikiped
 
 **Quantify horse strength in this repository.**
 
-## Target　Race
+## TargetRace
 all graded races in 2014 ~ 2018.
 
 ## Result
