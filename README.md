@@ -18,3 +18,9 @@ While it's hard for a person to draft a direct ranking of (many) brands of wine,
 The Bradley–Terry model can then be used to derive a full ranking. by [wikipedia](https://en.wikipedia.org/wiki/Bradley%E2%80%93Terry_model)
 
 **Quantify horse strength in this repository.**
+
+## Target　Race
+all graded races in 2014 ~ 2018.
+
+## Result
+<img width="1121" alt="result" src="https://user-images.githubusercontent.com/36298285/80943711-c9915a80-8e22-11ea-91d9-bc2096d62612.png">
